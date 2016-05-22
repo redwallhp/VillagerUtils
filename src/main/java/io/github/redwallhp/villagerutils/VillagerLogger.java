@@ -1,15 +1,12 @@
 package io.github.redwallhp.villagerutils;
 
 import org.bukkit.Location;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
-
-import java.util.Map;
 
 
 public class VillagerLogger implements Listener {

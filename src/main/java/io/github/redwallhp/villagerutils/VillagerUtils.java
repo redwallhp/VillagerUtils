@@ -1,7 +1,9 @@
 package io.github.redwallhp.villagerutils;
 
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import io.github.redwallhp.villagerutils.commands.CommandManager;
 import org.bukkit.inventory.MerchantRecipe;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -25,6 +27,7 @@ public class VillagerUtils extends JavaPlugin {
         new CommandManager();
         new TradeEditorListener();
         new VillagerLogger();
+        new VillagerProtector();
 
     }
 
@@ -36,6 +39,15 @@ public class VillagerUtils extends JavaPlugin {
 
     public HashMap<UUID, MerchantRecipe> getTradeWorkspace() {
         return tradeWorkspace;
+    }
+
+
+    /**
+     * Check if WorldGuard is installed
+     */
+    public boolean hasWG() {
+        Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+        return (plugin != null && (plugin instanceof WorldGuardPlugin));
     }
 
 
