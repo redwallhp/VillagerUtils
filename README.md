@@ -31,3 +31,8 @@ Tools for managing villagers on Spigot servers
 * `/vtrade maxuses <int>` - Set how many times this trade can be used before it locks, requiring a player to refresh it by using other trades. A blank trade will default to a random number from 2-12, to mimic vanilla distribution. If this is for a "server merchant" or similar, you may specify a value of `max` for the highest available integer.
 
 * `/vtrade experience <boolean>` - Set whether this trade will yield experience or not. (Default: true)
+
+
+## Permissions
+
+* `villagerutils.editvillager` - Allow access to villager-editing commands
