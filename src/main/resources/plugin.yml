@@ -1,0 +1,23 @@
+name: VillagerUtils
+main: io.github.redwallhp.villagerutils.VillagerUtils
+description: Tools for managing villagers
+author: redwall_hp
+version: ${project.version}
+
+
+permissions:
+  villagerutils.*:
+    description: Gives access to all commands and functions
+    children:
+      villagerutils.editvillager: true
+  villagerutils.editvillager:
+    description: Access the /villager command
+
+
+commands:
+  villager:
+    description: Villager editing commands
+    usage: /villager <subcommand>
+  vtrade:
+    description: Create and edit a villager trade
+    usage: /vtrade <subcommand>
