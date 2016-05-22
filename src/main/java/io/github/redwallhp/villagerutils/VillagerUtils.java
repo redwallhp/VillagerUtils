@@ -13,16 +13,24 @@ public class VillagerUtils extends JavaPlugin {
 
     public static VillagerUtils instance;
     private HashMap<UUID, MerchantRecipe> tradeWorkspace;
+    private Configuration configuration;
 
 
     public void onEnable() {
 
         VillagerUtils.instance = this;
         tradeWorkspace = new HashMap<UUID, MerchantRecipe>();
+        configuration = new Configuration();
 
         new CommandManager();
         new TradeEditorListener();
+        new VillagerLogger();
 
+    }
+
+
+    public Configuration getConfiguration() {
+        return configuration;
     }
 
 
