@@ -8,6 +8,8 @@ Tools for managing villagers on Spigot servers
 
 * Log villager deaths with enough information to reasonably recreate them
 
+* Protect villagers from grief by only allowing WorldGuard region members to harm them
+
 ## Commands
 
 ### /villager
