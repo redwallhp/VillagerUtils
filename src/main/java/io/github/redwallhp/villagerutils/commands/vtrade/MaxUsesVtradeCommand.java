@@ -41,7 +41,12 @@ public class MaxUsesVtradeCommand extends AbstractCommand {
             return false;
         }
         try {
-            Integer value = Integer.parseInt(args[0]);
+            Integer value;
+            if (args[0].equalsIgnoreCase("max")) {
+                value = Integer.MAX_VALUE;
+            } else {
+                value = Integer.parseInt(args[0]);
+            }
             MerchantRecipe recipe = plugin.getTradeWorkspace().get(player.getUniqueId());
             recipe.setMaxUses(value);
             player.sendMessage(ChatColor.DARK_AQUA + "Max uses for trade set to " + value);
