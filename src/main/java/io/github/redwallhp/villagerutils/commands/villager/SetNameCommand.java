@@ -43,7 +43,8 @@ public class SetNameCommand extends AbstractCommand {
             player.sendMessage(ChatColor.RED + "You must enter a name.");
             return false;
         }
-        target.setCustomName(StringHelper.joinArray(" ", args));
+        String name = ChatColor.translateAlternateColorCodes('&', StringHelper.joinArray(" ", args));
+        target.setCustomName(name);
         player.sendMessage(ChatColor.DARK_AQUA + "Villager name updated.");
         return true;
     }

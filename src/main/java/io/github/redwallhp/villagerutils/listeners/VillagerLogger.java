@@ -1,5 +1,6 @@
-package io.github.redwallhp.villagerutils;
+package io.github.redwallhp.villagerutils.listeners;
 
+import io.github.redwallhp.villagerutils.VillagerUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;

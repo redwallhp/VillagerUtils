@@ -22,6 +22,8 @@ Tools for managing villagers on Spigot servers
 
 * `/villager cleartrades` - Clear all trades from a villager. You won't even be able to open the trade UI until you add some new ones.
 
+* `/villager static <boolean>` — Set whether the villager will automatically acquire trades. Setting this to false is useful for "server merchants."
+
 * `/villager addtrade` - Add a custom trade to the end of the stack. First you must have a trade in your workspace before you can apply it. (See `/vtrade` for further reference.)
 
 ### /vtrade

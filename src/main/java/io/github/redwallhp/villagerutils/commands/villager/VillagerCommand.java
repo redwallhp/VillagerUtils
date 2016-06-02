@@ -15,6 +15,7 @@ public class VillagerCommand extends AbstractCommand {
         addSubCommand("addtrade", new AddTradeCommand(plugin));
         addSubCommand("cleartrades", new ClearTradesCommand(plugin));
         addSubCommand("spawn", new SpawnCommand(plugin));
+        addSubCommand("static", new SetStaticCommand(plugin));
     }
 
 

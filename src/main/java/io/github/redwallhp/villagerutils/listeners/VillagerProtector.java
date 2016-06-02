@@ -1,6 +1,7 @@
-package io.github.redwallhp.villagerutils;
+package io.github.redwallhp.villagerutils.listeners;
 
 
+import io.github.redwallhp.villagerutils.VillagerUtils;
 import io.github.redwallhp.villagerutils.helpers.WorldGuardHelper;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;

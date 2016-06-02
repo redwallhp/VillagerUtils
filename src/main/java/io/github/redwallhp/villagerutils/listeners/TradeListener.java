@@ -1,10 +1,12 @@
-package io.github.redwallhp.villagerutils;
+package io.github.redwallhp.villagerutils.listeners;
 
+import io.github.redwallhp.villagerutils.VillagerUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.VillagerAcquireTradeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
@@ -14,20 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TradeEditorListener implements Listener {
+public class TradeListener implements Listener {
 
 
     private VillagerUtils plugin;
 
 
-    public TradeEditorListener() {
+    public TradeListener() {
         plugin = VillagerUtils.instance;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
 
     /**
-     * Update the trade recipe being edited when the inventory is closed
+     * Update the trade recipe being edited when the trade editor inventory is closed
      */
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
@@ -55,6 +57,18 @@ public class TradeEditorListener implements Listener {
         if (event.getClickedInventory() == null || event.getClickedInventory().getName() == null) return;
         if (!event.getClickedInventory().getName().equals("Edit Villager Trade")) return;
         if (event.getCurrentItem() != null && event.getCurrentItem().getType().equals(Material.STAINED_GLASS_PANE)) {
+            event.setCancelled(true);
+        }
+    }
+
+
+    /**
+     * Stop villagers from acquiring new trades if the villager is a server merchant
+     */
+    @EventHandler
+    public void onVillagerAcquireTrade(VillagerAcquireTradeEvent event) {
+        String villagerId = event.getEntity().getUniqueId().toString();
+        if (plugin.getVillagerMeta().STATIC_MERCHANTS.contains(villagerId)) {
             event.setCancelled(true);
         }
     }
