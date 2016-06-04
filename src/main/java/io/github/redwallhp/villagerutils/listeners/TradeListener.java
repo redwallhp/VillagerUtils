@@ -4,8 +4,10 @@ import io.github.redwallhp.villagerutils.VillagerUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.VillagerAcquireTradeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -70,6 +72,21 @@ public class TradeListener implements Listener {
         String villagerId = event.getEntity().getUniqueId().toString();
         if (plugin.getVillagerMeta().STATIC_MERCHANTS.contains(villagerId)) {
             event.setCancelled(true);
+        }
+    }
+
+
+    /**
+     * Clean up after server merchant villagers so we don't have an ever-expanding UUID list
+     */
+    @EventHandler
+    public void onVillagerDeath(EntityDeathEvent event) {
+        if (event.getEntity() instanceof Villager) {
+            String villagerId = event.getEntity().getUniqueId().toString();
+            if (plugin.getVillagerMeta().STATIC_MERCHANTS.contains(villagerId)) {
+                plugin.getVillagerMeta().STATIC_MERCHANTS.remove(villagerId);
+                plugin.getVillagerMeta().save();
+            }
         }
     }
 
