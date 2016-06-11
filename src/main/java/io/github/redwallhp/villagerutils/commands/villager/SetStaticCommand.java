@@ -30,10 +30,6 @@ public class SetStaticCommand extends AbstractCommand {
 
 
     public boolean action(CommandSender sender, String[] args) {
-        if (!plugin.getServer().getOnlineMode()) {
-            sender.sendMessage(ChatColor.RED + "This feature does not work with an offline mode server.");
-            return false;
-        }
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Console cannot spawn villagers.");
             return false;
