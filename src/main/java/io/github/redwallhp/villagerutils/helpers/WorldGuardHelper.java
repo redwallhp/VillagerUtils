@@ -25,7 +25,7 @@ public class WorldGuardHelper {
     public static boolean isVillagerViolenceProhibited(Player player, Villager villager) {
         if (!VillagerUtils.instance.getConfiguration().WORLDGUARD_PROTECT) return false;
         if (getWG() == null) return false;
-        return canBuild(player, villager.getLocation());
+        return !canBuild(player, villager.getLocation());
     }
 
 
