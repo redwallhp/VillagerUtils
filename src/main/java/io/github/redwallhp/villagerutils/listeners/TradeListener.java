@@ -58,7 +58,7 @@ public class TradeListener implements Listener {
     public void onInventoryMoveItem(InventoryClickEvent event) {
         if (event.getClickedInventory() == null || event.getClickedInventory().getName() == null) return;
         if (!event.getClickedInventory().getName().equals("Edit Villager Trade")) return;
-        if (event.getCurrentItem() != null && event.getCurrentItem().getType().equals(Material.STAINED_GLASS_PANE)) {
+        if (event.getCurrentItem() != null && event.getCurrentItem().getType().equals(Material.WHITE_STAINED_GLASS_PANE)) {
             event.setCancelled(true);
         }
     }

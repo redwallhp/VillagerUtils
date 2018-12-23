@@ -49,7 +49,7 @@ public class ItemsVtradeCommand extends AbstractCommand {
         MerchantRecipe recipe = plugin.getTradeWorkspace().get(player.getUniqueId());
         Inventory inventory = Bukkit.createInventory(null, 9, "Edit Villager Trade");
         for (int i = 2; i <= 8; i++) {
-            inventory.setItem(i, new ItemStack(Material.STAINED_GLASS_PANE, 1));
+            inventory.setItem(i, new ItemStack(Material.WHITE_STAINED_GLASS_PANE, 1));
         }
         for (ItemStack ingredient : recipe.getIngredients()) {
             int num = recipe.getIngredients().indexOf(ingredient);

@@ -4,6 +4,7 @@ description: Tools for managing villagers
 author: redwall_hp
 version: ${project.version}
 softdepend: [WorldGuard]
+api-version: 1.13
 
 
 permissions:

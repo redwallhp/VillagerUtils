@@ -1,6 +1,6 @@
 package io.github.redwallhp.villagerutils;
 
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.WorldGuard;
 import io.github.redwallhp.villagerutils.commands.CommandManager;
 import io.github.redwallhp.villagerutils.listeners.TradeListener;
 import io.github.redwallhp.villagerutils.listeners.VillagerLogger;
@@ -62,7 +62,7 @@ public class VillagerUtils extends JavaPlugin {
      */
     public boolean hasWG() {
         Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
-        return (plugin != null && (plugin instanceof WorldGuardPlugin));
+        return (plugin != null && (plugin instanceof WorldGuard));
     }
 
 

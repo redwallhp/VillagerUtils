@@ -1,9 +1,15 @@
 package io.github.redwallhp.villagerutils.helpers;
 
 
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.flags.Flags;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import io.github.redwallhp.villagerutils.VillagerUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.plugin.Plugin;
@@ -19,16 +25,29 @@ public class WorldGuardHelper {
     public static boolean isVillagerViolenceProhibited(Player player, Villager villager) {
         if (!VillagerUtils.instance.getConfiguration().WORLDGUARD_PROTECT) return false;
         if (getWG() == null) return false;
-        return !getWG().canBuild(player, villager.getLocation());
+        return canBuild(player, villager.getLocation());
     }
 
 
-    public static WorldGuardPlugin getWG() {
+    public static boolean canBuild(Player player, Location location) {
+        if (getWG() == null) return false;
+        RegionQuery query = getWG().getPlatform().getRegionContainer().createQuery();
+        com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(location);
+        LocalPlayer lp = WorldGuardPlugin.inst().wrapPlayer(player);
+        if (getWG().getPlatform().getSessionManager().hasBypass(lp, BukkitAdapter.adapt(location.getWorld()))) {
+            return true; //has bypass
+        } else {
+            return query.testState(loc, lp, Flags.BUILD);
+        }
+    }
+
+
+    public static WorldGuard getWG() {
         Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
-        if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+        if (plugin == null || !(plugin instanceof WorldGuard)) {
             return null;
         }
-        return (WorldGuardPlugin) plugin;
+        return WorldGuard.getInstance();
     }
 
 
