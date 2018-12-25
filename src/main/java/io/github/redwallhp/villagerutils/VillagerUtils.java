@@ -62,7 +62,7 @@ public class VillagerUtils extends JavaPlugin {
      */
     public boolean hasWG() {
         Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
-        return (plugin != null && (plugin instanceof WorldGuard));
+        return plugin != null;
     }
 
 

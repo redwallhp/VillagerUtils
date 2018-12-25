@@ -30,7 +30,7 @@ public class WorldGuardHelper {
 
 
     public static boolean canBuild(Player player, Location location) {
-        if (getWG() == null) return false;
+        if (getWG() == null) return true;
         RegionQuery query = getWG().getPlatform().getRegionContainer().createQuery();
         com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(location);
         LocalPlayer lp = WorldGuardPlugin.inst().wrapPlayer(player);
@@ -44,7 +44,7 @@ public class WorldGuardHelper {
 
     public static WorldGuard getWG() {
         Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
-        if (plugin == null || !(plugin instanceof WorldGuard)) {
+        if (plugin == null) {
             return null;
         }
         return WorldGuard.getInstance();
