@@ -28,6 +28,10 @@ Tools for managing villagers on Spigot servers
 
 * `/villager addtrade` - Add a custom trade to the end of the stack. First you must have a trade in your workspace before you can apply it. (See `/vtrade` for further reference.)
 
+* `/villager removetrade <position>` - Remove the trade at the specified position, from 1 to the number of trades.
+
+* `/villager listtrades` - List all trades offered by the villager you are looking at.
+
 ### /vtrade
 
 * `/vtrade new` - Create a new, blank trade
