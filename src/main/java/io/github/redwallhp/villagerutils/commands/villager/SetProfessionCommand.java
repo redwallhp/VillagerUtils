@@ -1,33 +1,31 @@
 package io.github.redwallhp.villagerutils.commands.villager;
 
-
-import io.github.redwallhp.villagerutils.VillagerUtils;
-import io.github.redwallhp.villagerutils.commands.AbstractCommand;
-import io.github.redwallhp.villagerutils.helpers.StringHelper;
-import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 
-public class SetProfessionCommand extends AbstractCommand {
+import io.github.redwallhp.villagerutils.VillagerUtils;
+import io.github.redwallhp.villagerutils.commands.AbstractCommand;
+import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 
+public class SetProfessionCommand extends AbstractCommand {
 
     public SetProfessionCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
     }
 
-
+    @Override
     public String getName() {
         return "profession";
     }
 
-
+    @Override
     public String getUsage() {
         return "/villager profession <name>";
     }
 
-
+    @Override
     public boolean action(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Console cannot edit villagers.");
@@ -48,6 +46,5 @@ public class SetProfessionCommand extends AbstractCommand {
         player.sendMessage(ChatColor.DARK_AQUA + "Villager profession updated.");
         return true;
     }
-
 
 }
