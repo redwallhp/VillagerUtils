@@ -1,10 +1,15 @@
 package io.github.redwallhp.villagerutils.commands.villager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.inventory.MerchantRecipe;
@@ -13,7 +18,7 @@ import io.github.redwallhp.villagerutils.VillagerUtils;
 import io.github.redwallhp.villagerutils.commands.AbstractCommand;
 import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 
-public class AddTradeCommand extends AbstractCommand {
+public class AddTradeCommand extends AbstractCommand implements TabCompleter {
 
     public AddTradeCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
@@ -82,6 +87,21 @@ public class AddTradeCommand extends AbstractCommand {
         target.setRecipes(recipes);
         player.sendMessage(ChatColor.DARK_AQUA + "Villager trade added.");
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (args.length == 2 && sender instanceof Player) {
+            Player player = (Player) sender;
+            Villager target = VillagerHelper.getVillagerInLineOfSight(player);
+            if (target != null) {
+                return IntStream.rangeClosed(1, target.getRecipeCount() + 1)
+                .mapToObj(i -> Integer.toString(i))
+                .filter(completion -> completion.startsWith(args[1]))
+                .collect(Collectors.toList());
+            }
+        }
+        return Collections.emptyList();
     }
 
 }

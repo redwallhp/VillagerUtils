@@ -1,6 +1,7 @@
 package io.github.redwallhp.villagerutils.commands;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -52,6 +53,14 @@ public abstract class AbstractCommand {
 
     public void addSubCommand(AbstractCommand command) {
         subCommands.put(command.getName(), command);
+    }
+
+    public AbstractCommand getSubCommand(String name) {
+        return subCommands.get(name.toLowerCase());
+    }
+
+    public Collection<String> getSubCommandNames() {
+        return subCommands.keySet();
     }
 
     private String getSubcommandsHelp() {

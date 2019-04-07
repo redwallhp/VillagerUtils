@@ -10,7 +10,7 @@ public class VillagerCommand extends AbstractCommand {
     public VillagerCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
         addSubCommand(new SetNameCommand(plugin));
-        addSubCommand(new SetProfessionCommand(plugin));
+        addSubCommand(new SetCareerCommand(plugin));
         addSubCommand(new AddTradeCommand(plugin));
         addSubCommand(new RemoveTradeCommand(plugin));
         addSubCommand(new ListTradesCommand(plugin));

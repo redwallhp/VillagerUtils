@@ -1,13 +1,16 @@
 package io.github.redwallhp.villagerutils.helpers;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.entity.Villager.Career;
 import org.bukkit.util.Vector;
 
 public class VillagerHelper {
@@ -41,12 +44,24 @@ public class VillagerHelper {
         return null;
     }
 
-    public static Villager.Profession getProfessionFromString(String key) {
+    public static Villager.Career getCareerFromString(String key) {
         try {
-            return Villager.Profession.valueOf(key.toUpperCase());
+            return Villager.Career.valueOf(key.toUpperCase());
         } catch (Exception ex) {
             return null;
         }
+    }
+
+    /**
+     * Return a sorted list of all career names in lower case.
+     * 
+     * @return a sorted list of all career names in lower case.
+     */
+    public static List<String> getCareerNames() {
+        return Arrays.asList(Career.values()).stream()
+        .map(c -> c.name().toLowerCase())
+        .sorted()
+        .collect(Collectors.toList());
     }
 
 }

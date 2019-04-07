@@ -1,6 +1,5 @@
 package io.github.redwallhp.villagerutils.commands.villager;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,61 +10,66 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.entity.Villager.Career;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
 import io.github.redwallhp.villagerutils.commands.AbstractCommand;
 import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 
-public class SetStaticCommand extends AbstractCommand implements TabCompleter {
+public class SetCareerCommand extends AbstractCommand implements TabCompleter {
 
-    public SetStaticCommand(VillagerUtils plugin) {
+    public SetCareerCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
     }
 
     @Override
     public String getName() {
-        return "static";
+        return "career";
     }
 
     @Override
     public String getUsage() {
-        return "/villager static <boolean>";
+        return "/villager career <name>";
     }
 
     @Override
     public boolean action(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Console cannot spawn villagers.");
+            sender.sendMessage(ChatColor.RED + "Console cannot edit villagers.");
             return false;
         }
         Player player = (Player) sender;
+
         Villager target = VillagerHelper.getVillagerInLineOfSight(player);
         if (target == null) {
             player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
             return false;
         }
-        if (args.length < 1) {
-            player.sendMessage(ChatColor.RED + getUsage());
+
+        if (args.length > 1) {
+            sender.sendMessage(ChatColor.RED + "Invalid arguments. Usage: " + getUsage());
             return false;
         }
-        Boolean value = Boolean.parseBoolean(args[0]);
-        if (value) {
-            plugin.getVillagerMeta().STATIC_MERCHANTS.add(target.getUniqueId().toString());
-            sender.sendMessage(ChatColor.DARK_AQUA + "This villager will not acquire its own trades.");
-        } else {
-            plugin.getVillagerMeta().STATIC_MERCHANTS.remove(target.getUniqueId().toString());
-            sender.sendMessage(ChatColor.DARK_AQUA + "This villager will acquire its own trades");
+
+        Career career = (args.length == 0) ? null : VillagerHelper.getCareerFromString(args[0]);
+        if (career == null) {
+            player.sendMessage(ChatColor.RED + "You must specify a career.");
+            player.sendMessage(ChatColor.GRAY + "Valid careers: " + String.join(", ", VillagerHelper.getCareerNames()));
+            return false;
         }
-        plugin.getVillagerMeta().save();
+
+        target.setProfession(career.getProfession());
+        target.setCareer(career, false);
+        player.sendMessage(ChatColor.DARK_AQUA + "Villager career updated.");
         return true;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 2) {
-            return Arrays.asList("false", "true").stream()
+            return VillagerHelper.getCareerNames().stream()
             .filter(completion -> completion.startsWith(args[1].toLowerCase()))
-            .collect(Collectors.toList());
+            .sorted().collect(Collectors.toList());
         } else {
             return Collections.emptyList();
         }
