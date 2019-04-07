@@ -26,7 +26,7 @@ public class RemoveTradeCommand extends AbstractCommand {
 
     @Override
     public String getUsage() {
-        return "villager removetrade <position>";
+        return "/villager removetrade <position>";
     }
 
     @Override
@@ -44,7 +44,7 @@ public class RemoveTradeCommand extends AbstractCommand {
         }
 
         if (args.length != 1) {
-            player.sendMessage(ChatColor.RED + getUsage());
+            player.sendMessage(ChatColor.RED + "Invalid arguments. Usage: " + getUsage());
             return false;
         }
 
@@ -61,7 +61,7 @@ public class RemoveTradeCommand extends AbstractCommand {
             }
         } catch (IllegalArgumentException ex) {
         }
-        player.sendMessage(ChatColor.RED + "The trade index must be between 1 and the number of trades.");
+        player.sendMessage(ChatColor.RED + "The position must be between 1 and the number of trades.");
         return false;
     }
 

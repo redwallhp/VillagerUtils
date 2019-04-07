@@ -42,6 +42,11 @@ public class ListTradesCommand extends AbstractCommand {
             return false;
         }
 
+        if (args.length != 0) {
+            player.sendMessage(ChatColor.RED + "Invalid arguments. Usage: " + getUsage());
+            return false;
+        }
+
         int index = 1;
         for (MerchantRecipe recipe : target.getRecipes()) {
             listTrade(sender, index, recipe);
