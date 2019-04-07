@@ -28,7 +28,7 @@ public class ExperienceVtradeCommand extends AbstractCommand implements TabCompl
 
     @Override
     public String getUsage() {
-        return "/vtrade experience <boolean>";
+        return "/vtrade experience <given>";
     }
 
     @Override
@@ -38,23 +38,31 @@ public class ExperienceVtradeCommand extends AbstractCommand implements TabCompl
             return false;
         }
         Player player = (Player) sender;
-        if (!plugin.getTradeWorkspace().containsKey(player.getUniqueId())) {
+        if (!plugin.getWorkspaceManager().hasWorkspace(player)) {
             player.sendMessage(ChatColor.RED + "You do not have a villager trade loaded. Use '/vtrade new' to start one.");
             return false;
         }
-        if (args.length < 1) {
-            player.sendMessage(ChatColor.RED + getUsage());
+        if (args.length != 1) {
+            player.sendMessage(ChatColor.RED + "Invalid arguments. Usage: " + getUsage());
             return false;
         }
-        try {
-            Boolean value = Boolean.parseBoolean(args[0]);
-            MerchantRecipe recipe = plugin.getTradeWorkspace().get(player.getUniqueId());
-            recipe.setExperienceReward(value);
-            player.sendMessage(ChatColor.DARK_AQUA + "Experience reward for trade set to " + value);
-        } catch (Exception ex) {
-            player.sendMessage(ChatColor.RED + getUsage());
+
+        boolean value;
+        switch (args[0].toLowerCase()) {
+        case "false":
+            value = false;
+            break;
+        case "true":
+            value = true;
+            break;
+        default:
+            sender.sendMessage(ChatColor.RED + "The <given> argument must be true or false.");
             return false;
         }
+
+        MerchantRecipe recipe = plugin.getWorkspaceManager().getWorkspace(player);
+        recipe.setExperienceReward(value);
+        player.sendMessage(ChatColor.DARK_AQUA + "This trade will " + (value ? "" : "not") + " give experience.");
         return true;
     }
 

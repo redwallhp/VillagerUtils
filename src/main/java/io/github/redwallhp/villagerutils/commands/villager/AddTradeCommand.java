@@ -46,11 +46,11 @@ public class AddTradeCommand extends AbstractCommand implements TabCompleter {
             player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
             return false;
         }
-        if (!plugin.getTradeWorkspace().containsKey(player.getUniqueId())) {
+        if (!plugin.getWorkspaceManager().hasWorkspace(player)) {
             player.sendMessage(ChatColor.RED + "You do not have a trade loaded. Use '/vtrade'");
             return false;
         }
-        MerchantRecipe recipe = plugin.getTradeWorkspace().get(player.getUniqueId());
+        MerchantRecipe recipe = plugin.getWorkspaceManager().getWorkspace(player);
         if (recipe.getIngredients().size() == 0) {
             player.sendMessage(ChatColor.RED + "You haven't set the trade items yet! Use '/vtrade items'");
             return false;
