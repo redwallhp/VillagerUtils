@@ -12,35 +12,45 @@ Tools for managing villagers on Spigot servers
 
 * Protect villagers from being hurt by blacklisted mob types. e.g. `protect_from_mobs: [Evoker, Evoker_Fangs, Vex, Vindicator]`
 
-## Commands
 
+## Commands
 ### /villager
 
-* `/villager spawn [profession]` - Convenience command to spawn a new villager at your location, and optionally set its profession.
+The `/villager` command modifies the attributes and trades of the villager 
+currently in your crosshairs. The villager must be within 5 blocks or they
+will not be "seen".
+
+* `/villager spawn [<career>]` - Convenience command to spawn a new villager at your location, and optionally set its career.
 
 * `/villager name <name>` - Set the villager's name
 
-* `/villager profession <profession>` - Set the villager's profession to any valid option.
+* `/villager career <career>` - Set the villager's career to any valid option.
 
 * `/villager cleartrades` - Clear all trades from a villager. You won't even be able to open the trade UI until you add some new ones.
 
 * `/villager static <boolean>` — Set whether the villager will automatically acquire trades. Setting this to false is useful for "server merchants."
 
-* `/villager addtrade` - Add a custom trade to the end of the stack. First you must have a trade in your workspace before you can apply it. (See `/vtrade` for further reference.)
+* `/villager listtrades` - List all trades offered by the villager you are looking at. Trades are numbered from 1 to the total number of trades.
+
+* `/villager addtrade [<position>]` - Add the trade in your workspace to the villager. If a position is specified, the trade is inserted before the existing trade at that position and all subsequent trades are moved down the list. Position 1 signifies the first trade. To add the trade after the last trade, use a position number that is greater than the number of trades, or simply omit the position.
 
 * `/villager removetrade <position>` - Remove the trade at the specified position, from 1 to the number of trades.
 
-* `/villager listtrades` - List all trades offered by the villager you are looking at.
 
 ### /vtrade
 
-* `/vtrade new` - Create a new, blank trade
+The `/vtrade` command alters the properties of the trade currently on your
+"workspace". You can copy a villager's trade to the workspace with
+`/villager gettrade` and paste a trade to the same or a different villager
+with `/villager settrade` or `/villager addtrade`.
+
+* `/vtrade new [<maxuses>|max]` - Create a new, blank trade that gives experience. If `<maxuses>` is specified, it is the maximum number of times the trade can be used before it locked. Otherwise the number is randomly selected between 2 and 12, inclusive. The word `max` can be used to signify the largest integer (about 2 billion).
 
 * `/vtrade items` - Open an inventory UI to insert 1-2 items for the "cost" and one item for the result of the trade.
 
-* `/vtrade maxuses <int>` - Set how many times this trade can be used before it locks, requiring a player to refresh it by using other trades. A blank trade will default to a random number from 2-12, to mimic vanilla distribution. If this is for a "server merchant" or similar, you may specify a value of `max` for the highest available integer.
+* `/vtrade maxuses <int>|max` - Set how many times this trade can be used before it locks, requiring a player to refresh it by using other trades. A blank trade will default to a random number from 2-12, to mimic vanilla distribution. The word `max` can be used to signify the largest integer (about 2 billion).
 
-* `/vtrade experience <boolean>` - Set whether this trade will yield experience or not. (Default: true)
+* `/vtrade experience <given>` - Set whether this trade will yield experience or not. The <given> argument must be either `true` or `false`.
 
 
 ## Permissions
