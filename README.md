@@ -1,16 +1,16 @@
 #VillagerUtils
 
-Tools for managing villagers on Spigot servers
+Tools for managing villagers on Spigot servers.
 
 ![Editing a villager trade](http://i.imgur.com/pBWpb0d.gif)
 
-* Commands to edit villager trades and professions
+* Commands to edit villager trades and professions.
 
-* Log villager deaths with enough information to reasonably recreate them
+* Log villager deaths with enough information to reasonably recreate them.
 
-* Protect villagers from grief by only allowing WorldGuard region members to harm them
+* Protect villagers from grief by only allowing WorldGuard region members to harm them.
 
-* Protect villagers from being hurt by blacklisted mob types. e.g. `protect_from_mobs: [Evoker, Evoker_Fangs, Vex, Vindicator]`
+* Protect villagers from being hurt by blacklisted mob types. e.g. `protect_from_mobs: [Evoker, Evoker_Fangs, Vex, Vindicator]`.
 
 
 ## Commands
@@ -22,7 +22,7 @@ will not be "seen".
 
 * `/villager spawn [<career>]` - Convenience command to spawn a new villager at your location, and optionally set its career.
 
-* `/villager name <name>` - Set the villager's name
+* `/villager name <name>` - Set the villager's name.
 
 * `/villager career <career>` - Set the villager's career to any valid option.
 
@@ -31,6 +31,10 @@ will not be "seen".
 * `/villager static <boolean>` — Set whether the villager will automatically acquire trades. Setting this to false is useful for "server merchants."
 
 * `/villager listtrades` - List all trades offered by the villager you are looking at. Trades are numbered from 1 to the total number of trades.
+
+* `/villager gettrade <position>` - Copy the trade at the specified position to the workspace. (See `/vtrade`.)
+
+* `/villager settrade <position>` - Replace the trade at the specified position with the one on the workspace.
 
 * `/villager addtrade [<position>]` - Add the trade in your workspace to the villager. If a position is specified, the trade is inserted before the existing trade at that position and all subsequent trades are moved down the list. Position 1 signifies the first trade. To add the trade after the last trade, use a position number that is greater than the number of trades, or simply omit the position.
 
@@ -52,7 +56,10 @@ with `/villager settrade` or `/villager addtrade`.
 
 * `/vtrade experience <given>` - Set whether this trade will yield experience or not. The <given> argument must be either `true` or `false`.
 
+* `/vtrade info` - Show a description of the trade currently on your workspace.
+
 
 ## Permissions
 
-* `villagerutils.editvillager` - Allow access to villager-editing commands
+* `villagerutils.editvillager` - Allow access to villager-editing commands.
+

@@ -13,6 +13,7 @@ public class VtradeCommand extends AbstractCommand {
         addSubCommand(new ItemsVtradeCommand(plugin));
         addSubCommand(new MaxUsesVtradeCommand(plugin));
         addSubCommand(new ExperienceVtradeCommand(plugin));
+        addSubCommand(new InfoVtradeCommand(plugin));
     }
 
     @Override
