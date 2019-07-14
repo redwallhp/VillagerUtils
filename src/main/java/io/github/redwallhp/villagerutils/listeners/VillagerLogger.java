@@ -1,6 +1,5 @@
 package io.github.redwallhp.villagerutils.listeners;
 
-import io.github.redwallhp.villagerutils.VillagerUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -9,30 +8,27 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
 
+import io.github.redwallhp.villagerutils.VillagerUtils;
 
 public class VillagerLogger implements Listener {
 
-
-    private VillagerUtils plugin;
-
+    private final VillagerUtils plugin;
 
     public VillagerLogger() {
         plugin = VillagerUtils.instance;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (!plugin.getConfiguration().LOGGING) return;
+        if (!plugin.getConfiguration().LOGGING)
+            return;
         if (event.getEntity() instanceof Villager) {
             logDeath((Villager) event.getEntity());
         }
     }
 
-
     private void logDeath(Villager villager) {
-
         StringBuilder sb = new StringBuilder("[VILLAGER DEATH] ");
 
         Location l = villager.getLocation();
@@ -48,7 +44,9 @@ public class VillagerLogger implements Listener {
         }
 
         sb.append(String.format("Profession: %s | ", villager.getProfession()));
-        sb.append(String.format("Riches: %d | ", villager.getRiches()));
+        sb.append(String.format("Style: %s | ", villager.getVillagerType()));
+        sb.append(String.format("Level: %d | ", villager.getVillagerLevel()));
+        sb.append(String.format("Experience: %d | ", villager.getVillagerExperience()));
         sb.append("Recipes: ");
 
         for (MerchantRecipe recipe : villager.getRecipes()) {
@@ -61,14 +59,10 @@ public class VillagerLogger implements Listener {
         }
 
         plugin.getLogger().info(sb.toString());
-
     }
 
-
     private String getRecipeString(MerchantRecipe recipe) {
-
-        StringBuilder sb = new StringBuilder("");
-
+        StringBuilder sb = new StringBuilder();
         sb.append(String.format("[Result] %s ", recipe.getResult().toString()));
 
         sb.append("[Cost] ");
@@ -85,8 +79,5 @@ public class VillagerLogger implements Listener {
         sb.append(String.format("[XP Reward] %b", recipe.hasExperienceReward()));
 
         return sb.toString();
-
     }
-
-
 }

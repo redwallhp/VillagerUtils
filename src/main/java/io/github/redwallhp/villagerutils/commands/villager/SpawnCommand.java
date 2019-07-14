@@ -12,7 +12,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
-import org.bukkit.entity.Villager.Career;
+import org.bukkit.entity.Villager.Profession;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
 import io.github.redwallhp.villagerutils.commands.AbstractCommand;
@@ -31,7 +31,7 @@ public class SpawnCommand extends AbstractCommand implements TabCompleter {
 
     @Override
     public String getUsage() {
-        return "/villager spawn [<career>]";
+        return "/villager spawn [<profession>]";
     }
 
     @Override
@@ -46,11 +46,11 @@ public class SpawnCommand extends AbstractCommand implements TabCompleter {
             return false;
         }
 
-        Career career = null;
+        Profession profession = null;
         if (args.length == 1) {
-            career = VillagerHelper.getCareerFromString(args[0]);
-            if (career == null) {
-                sender.sendMessage(ChatColor.RED + "That's not a valid career.");
+            profession = VillagerHelper.getProfessionFromString(args[0]);
+            if (profession == null) {
+                sender.sendMessage(ChatColor.RED + "That's not a valid profession.");
                 return false;
             }
         }
@@ -58,9 +58,8 @@ public class SpawnCommand extends AbstractCommand implements TabCompleter {
         Player player = (Player) sender;
         Location loc = player.getLocation();
         Villager villager = (Villager) loc.getWorld().spawnEntity(loc, EntityType.VILLAGER);
-        if (career != null) {
-            villager.setProfession(career.getProfession());
-            villager.setCareer(career);
+        if (profession != null) {
+            villager.setProfession(profession);
         }
 
         plugin.getLogger().info(String.format("%s spawned villager at %d, %d, %d", player.getName(),
@@ -72,7 +71,7 @@ public class SpawnCommand extends AbstractCommand implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 2) {
-            return VillagerHelper.getCareerNames().stream()
+            return VillagerHelper.getProfessionNames().stream()
             .filter(completion -> completion.startsWith(args[1].toLowerCase()))
             .sorted().collect(Collectors.toList());
         } else {

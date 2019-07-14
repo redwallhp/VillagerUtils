@@ -10,7 +10,7 @@ import org.bukkit.inventory.MerchantRecipe;
  */
 public class TradeHelper {
     /**
-     * Show a decription of a trade to a command sender.
+     * Show a description of a trade to a command sender.
      * 
      * @param sender the command sender.
      * @param recipe the trade recipe.

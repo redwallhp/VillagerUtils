@@ -4,7 +4,7 @@ Tools for managing villagers on Spigot servers.
 
 ![Editing a villager trade](http://i.imgur.com/pBWpb0d.gif)
 
-* Commands to edit villager trades and professions.
+* Commands to edit villager trades, professions, styles and experience levels.
 
 * Log villager deaths with enough information to reasonably recreate them.
 
@@ -20,11 +20,11 @@ The `/villager` command modifies the attributes and trades of the villager
 currently in your crosshairs. The villager must be within 5 blocks or they
 will not be "seen".
 
-* `/villager spawn [<career>]` - Convenience command to spawn a new villager at your location, and optionally set its career.
+* `/villager spawn [<profession>]` - Convenience command to spawn a new villager at your location, and optionally set its profession.
 
 * `/villager name <name>` - Set the villager's name.
 
-* `/villager career <career>` - Set the villager's career to any valid option.
+* `/villager profession <profession>` - Set the villager's profession to any valid option.
 
 * `/villager cleartrades` - Clear all trades from a villager. You won't even be able to open the trade UI until you add some new ones.
 

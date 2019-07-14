@@ -13,6 +13,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.VillagerAcquireTradeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
 
@@ -21,6 +22,10 @@ import io.github.redwallhp.villagerutils.VillagerUtils;
 public class TradeListener implements Listener {
 
     private final VillagerUtils plugin;
+
+    protected boolean isTradeEditingView(InventoryView view) {
+        return view != null && "Edit Villager Trade".equals(view.getTitle());
+    }
 
     public TradeListener() {
         plugin = VillagerUtils.instance;
@@ -34,7 +39,7 @@ public class TradeListener implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
-        if (!event.getInventory().getName().equals("Edit Villager Trade") ||
+        if (!isTradeEditingView(event.getView()) ||
             !plugin.getWorkspaceManager().hasWorkspace(player)) {
             return;
         }
@@ -58,8 +63,7 @@ public class TradeListener implements Listener {
     @EventHandler
     public void onInventoryMoveItem(InventoryClickEvent event) {
         if (event.getClickedInventory() == null ||
-            event.getClickedInventory().getName() == null ||
-            !event.getClickedInventory().getName().equals("Edit Villager Trade")) {
+            !isTradeEditingView(event.getView())) {
             return;
         }
 
@@ -94,5 +98,4 @@ public class TradeListener implements Listener {
             }
         }
     }
-
 }
