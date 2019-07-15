@@ -9,10 +9,13 @@ public class VillagerCommand extends AbstractCommand {
 
     public VillagerCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
-        addSubCommand(new SetNameCommand(plugin));
+        // Subcommands added in the order listed by /villager help.
+        addSubCommand(new SpawnCommand(plugin));
         addSubCommand(new SetBiomeCommand(plugin));
         addSubCommand(new SetProfessionCommand(plugin));
         addSubCommand(new SetLevelCommand(plugin));
+        addSubCommand(new SetNameCommand(plugin));
+        addSubCommand(new SetStaticCommand(plugin));
         addSubCommand(new AddTradeCommand(plugin));
         addSubCommand(new RemoveTradeCommand(plugin));
         addSubCommand(new ListTradesCommand(plugin));
@@ -21,8 +24,6 @@ public class VillagerCommand extends AbstractCommand {
         // addSubCommand(new RefreshTradesCommand(plugin));
         addSubCommand(new GetTradeCommand(plugin));
         addSubCommand(new SetTradeCommand(plugin));
-        addSubCommand(new SpawnCommand(plugin));
-        addSubCommand(new SetStaticCommand(plugin));
     }
 
     @Override

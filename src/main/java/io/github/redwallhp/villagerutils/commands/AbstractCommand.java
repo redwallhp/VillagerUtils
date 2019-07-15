@@ -2,8 +2,9 @@ package io.github.redwallhp.villagerutils.commands;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -14,17 +15,19 @@ public abstract class AbstractCommand {
 
     protected VillagerUtils plugin;
     private final String permission;
-    private final HashMap<String, AbstractCommand> subCommands;
+    private final Map<String, AbstractCommand> subCommands;
 
     public AbstractCommand(VillagerUtils plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
-        this.subCommands = new HashMap<String, AbstractCommand>();
+        this.subCommands = new LinkedHashMap<String, AbstractCommand>();
     }
 
     public boolean execute(CommandSender sender, String[] args) {
-        if (!checkPermission(sender))
+        if (!checkPermission(sender)) {
             return false;
+        }
+
         if (subCommands.size() > 0) {
             if (args.length == 0) {
                 sender.sendMessage(ChatColor.RED + "Usage: " + getUsage());
@@ -64,15 +67,8 @@ public abstract class AbstractCommand {
     }
 
     private String getSubcommandsHelp() {
-        StringBuilder sb = new StringBuilder(ChatColor.GRAY + "Subcommands: ");
-        Iterator<String> it = subCommands.keySet().iterator();
-        while (it.hasNext()) {
-            String key = it.next();
-            sb.append(key);
-            if (it.hasNext())
-                sb.append(", ");
-        }
-        return sb.toString();
+        return ChatColor.DARK_AQUA + "Subcommands: " +
+               ChatColor.GRAY + subCommands.keySet().stream().collect(Collectors.joining(", "));
     }
 
     /**
