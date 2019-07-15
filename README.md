@@ -59,7 +59,7 @@ with `/villager settrade` or `/villager addtrade`.
 
 * `/vtrade maxuses <int>|max` - Set how many times this trade can be used before it locks, requiring a player to refresh it by using other trades. A blank trade will default to a random number from 2-12, to mimic vanilla distribution. The word `max` can be used to signify the largest integer (about 2 billion).
 
-* `/vtrade experience <given>` - Set whether this trade will yield experience or not. The <given> argument must be either `true` or `false`.
+* `/vtrade givesxp <given>` - Set whether this trade will yield experience or not. The <given> argument must be either `true` or `false`.
 
 * `/vtrade info` - Show a description of the trade currently on your workspace.
 

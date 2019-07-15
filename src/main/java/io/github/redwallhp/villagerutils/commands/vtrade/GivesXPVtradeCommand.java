@@ -15,20 +15,20 @@ import org.bukkit.inventory.MerchantRecipe;
 import io.github.redwallhp.villagerutils.VillagerUtils;
 import io.github.redwallhp.villagerutils.commands.AbstractCommand;
 
-public class ExperienceVtradeCommand extends AbstractCommand implements TabCompleter {
+public class GivesXPVtradeCommand extends AbstractCommand implements TabCompleter {
 
-    public ExperienceVtradeCommand(VillagerUtils plugin) {
+    public GivesXPVtradeCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
     }
 
     @Override
     public String getName() {
-        return "experience";
+        return "givesxp";
     }
 
     @Override
     public String getUsage() {
-        return "/vtrade experience <given>";
+        return "/vtrade givesxp <given>";
     }
 
     @Override
