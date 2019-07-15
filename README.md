@@ -25,9 +25,13 @@ The `/villager` command modifies the attributes and trades of the villager
 currently in your crosshairs. The villager must be within 5 blocks or they
 will not be "seen".
 
-* `/villager spawn [<profession>]` - Convenience command to spawn a new villager at your location, and optionally set its profession.
+* `/villager spawn [<biome>] [<profession>] [<level>]` - Convenience command to spawn
+  a new villager at your location, optionally setting biome styling, profession
+  and level (1-5).
 
 * `/villager name <name>` - Set the villager's name.
+
+* `/villager biome <biome>` - Set the villager's biome, which affects its appearance.
 
 * `/villager profession <profession>` - Set the villager's profession to any valid option.
 
