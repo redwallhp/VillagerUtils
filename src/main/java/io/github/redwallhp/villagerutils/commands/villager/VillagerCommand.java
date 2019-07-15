@@ -12,6 +12,7 @@ public class VillagerCommand extends AbstractCommand {
         addSubCommand(new SetNameCommand(plugin));
         addSubCommand(new SetBiomeCommand(plugin));
         addSubCommand(new SetProfessionCommand(plugin));
+        addSubCommand(new SetLevelCommand(plugin));
         addSubCommand(new AddTradeCommand(plugin));
         addSubCommand(new RemoveTradeCommand(plugin));
         addSubCommand(new ListTradesCommand(plugin));

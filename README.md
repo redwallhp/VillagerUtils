@@ -35,6 +35,8 @@ will not be "seen".
 
 * `/villager profession <profession>` - Set the villager's profession to any valid option.
 
+* `/villager level <level>` - Set the villager's level from 1 to 5, inclusive.
+
 * `/villager cleartrades` - Clear all trades from a villager. You won't even be able to open the trade UI until you add some new ones.
 
 * `/villager static <boolean>` — Set whether the villager will automatically acquire trades. Setting this to false is useful for "server merchants."
