@@ -4,13 +4,18 @@ Tools for managing villagers on Spigot servers.
 
 ![Editing a villager trade](http://i.imgur.com/pBWpb0d.gif)
 
-* Commands to edit villager trades, professions, styles and experience levels.
+* Commands to edit villager trades, professions, biomes and experience levels.
 
 * Log villager deaths with enough information to reasonably recreate them.
 
 * Protect villagers from grief by only allowing WorldGuard region members to harm them.
 
 * Protect villagers from being hurt by blacklisted mob types. e.g. `protect_from_mobs: [Evoker, Evoker_Fangs, Vex, Vindicator]`.
+
+Note that novice villagers select their profession to suit a nearby workstation.
+Until a villager has selected a workstation, his skin will not reflect the
+villager's current profession. Setting a villager to master level (5) does not
+automatically create trades appropriate to their profession.
 
 
 ## Commands

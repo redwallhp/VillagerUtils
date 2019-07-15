@@ -44,7 +44,7 @@ public class VillagerLogger implements Listener {
         }
 
         sb.append(String.format("Profession: %s | ", villager.getProfession()));
-        sb.append(String.format("Style: %s | ", villager.getVillagerType()));
+        sb.append(String.format("Biome: %s | ", villager.getVillagerType()));
         sb.append(String.format("Level: %d | ", villager.getVillagerLevel()));
         sb.append(String.format("Experience: %d | ", villager.getVillagerExperience()));
         sb.append("Recipes: ");

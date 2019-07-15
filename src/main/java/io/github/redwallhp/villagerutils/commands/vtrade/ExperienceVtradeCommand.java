@@ -62,7 +62,7 @@ public class ExperienceVtradeCommand extends AbstractCommand implements TabCompl
 
         MerchantRecipe recipe = plugin.getWorkspaceManager().getWorkspace(player);
         recipe.setExperienceReward(value);
-        player.sendMessage(ChatColor.DARK_AQUA + "This trade will " + (value ? "" : "not") + " give experience.");
+        player.sendMessage(ChatColor.DARK_AQUA + "This trade will" + (value ? "" : " not") + " give experience.");
         return true;
     }
 

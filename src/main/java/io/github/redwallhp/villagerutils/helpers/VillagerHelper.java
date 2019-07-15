@@ -51,6 +51,14 @@ public class VillagerHelper {
         }
     }
 
+    public static Villager.Type getVillagerTypeFromString(String key) {
+        try {
+            return Villager.Type.valueOf(key.toUpperCase());
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
     /**
      * Return a sorted list of all profession names in lower case.
      * 
@@ -58,6 +66,18 @@ public class VillagerHelper {
      */
     public static List<String> getProfessionNames() {
         return Arrays.asList(Villager.Profession.values()).stream()
+        .map(c -> c.name().toLowerCase())
+        .sorted()
+        .collect(Collectors.toList());
+    }
+
+    /**
+     * Return a sorted list of all villager type names in lower case.
+     * 
+     * @return a sorted list of all villager type names in lower case.
+     */
+    public static List<String> getVillagerTypeNames() {
+        return Arrays.asList(Villager.Type.values()).stream()
         .map(c -> c.name().toLowerCase())
         .sorted()
         .collect(Collectors.toList());
