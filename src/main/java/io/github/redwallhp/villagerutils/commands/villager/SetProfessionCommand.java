@@ -13,10 +13,10 @@ import org.bukkit.entity.Villager;
 import org.bukkit.entity.Villager.Profession;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
-import io.github.redwallhp.villagerutils.commands.AbstractCommand;
+import io.github.redwallhp.villagerutils.commands.VillagerSpecificAbstractCommand;
 import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 
-public class SetProfessionCommand extends AbstractCommand implements TabCompleter {
+public class SetProfessionCommand extends VillagerSpecificAbstractCommand implements TabCompleter {
 
     public SetProfessionCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
@@ -40,9 +40,8 @@ public class SetProfessionCommand extends AbstractCommand implements TabComplete
         }
         Player player = (Player) sender;
 
-        Villager target = VillagerHelper.getVillagerInLineOfSight(player);
-        if (target == null) {
-            player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
+        Villager villager = getVillagerInLineOfSight(player, "Wandering traders can't change their profession.");
+        if (villager == null) {
             return false;
         }
 
@@ -58,7 +57,7 @@ public class SetProfessionCommand extends AbstractCommand implements TabComplete
             return false;
         }
 
-        target.setProfession(profession);
+        villager.setProfession(profession);
         player.sendMessage(ChatColor.DARK_AQUA + "Villager profession updated.");
         return true;
     }

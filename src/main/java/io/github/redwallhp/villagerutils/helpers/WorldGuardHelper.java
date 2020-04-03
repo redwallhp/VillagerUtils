@@ -2,8 +2,8 @@ package io.github.redwallhp.villagerutils.helpers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.plugin.Plugin;
 
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
@@ -22,11 +22,13 @@ import io.github.redwallhp.villagerutils.VillagerUtils;
  */
 public class WorldGuardHelper {
 
-    public static boolean isVillagerViolenceProhibited(Player player, Villager villager) {
-        if (!VillagerUtils.instance.getConfiguration().WORLDGUARD_PROTECT)
+    public static boolean isVillagerViolenceProhibited(Player player, AbstractVillager villager) {
+        if (!VillagerUtils.instance.getConfiguration().WORLDGUARD_PROTECT) {
             return false;
-        if (getWG() == null)
+        }
+        if (getWG() == null) {
             return false;
+        }
         return !canBuild(player, villager.getLocation());
     }
 

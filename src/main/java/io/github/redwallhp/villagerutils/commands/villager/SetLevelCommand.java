@@ -13,10 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
-import io.github.redwallhp.villagerutils.commands.AbstractCommand;
-import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
+import io.github.redwallhp.villagerutils.commands.VillagerSpecificAbstractCommand;
 
-public class SetLevelCommand extends AbstractCommand implements TabCompleter {
+public class SetLevelCommand extends VillagerSpecificAbstractCommand implements TabCompleter {
 
     public SetLevelCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
@@ -40,9 +39,8 @@ public class SetLevelCommand extends AbstractCommand implements TabCompleter {
         }
         Player player = (Player) sender;
 
-        Villager target = VillagerHelper.getVillagerInLineOfSight(player);
-        if (target == null) {
-            player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
+        Villager villager = getVillagerInLineOfSight(player, "Wandering traders can't change their level.");
+        if (villager == null) {
             return false;
         }
 
@@ -61,7 +59,7 @@ public class SetLevelCommand extends AbstractCommand implements TabCompleter {
             return false;
         }
 
-        target.setVillagerLevel(level);
+        villager.setVillagerLevel(level);
         player.sendMessage(ChatColor.DARK_AQUA + "Villager level set to " + level + ".");
         return true;
     }

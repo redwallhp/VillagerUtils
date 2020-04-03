@@ -9,8 +9,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.inventory.MerchantRecipe;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
@@ -41,7 +41,7 @@ public class GetTradeCommand extends AbstractCommand implements TabCompleter {
         }
 
         Player player = (Player) sender;
-        Villager target = VillagerHelper.getVillagerInLineOfSight(player);
+        AbstractVillager target = VillagerHelper.getAbstractVillagerInLineOfSight(player);
         if (target == null) {
             player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
             return false;
@@ -70,7 +70,7 @@ public class GetTradeCommand extends AbstractCommand implements TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 2 && sender instanceof Player) {
             Player player = (Player) sender;
-            Villager target = VillagerHelper.getVillagerInLineOfSight(player);
+            AbstractVillager target = VillagerHelper.getAbstractVillagerInLineOfSight(player);
             if (target != null) {
                 return IntStream.rangeClosed(1, target.getRecipeCount())
                 .mapToObj(i -> Integer.toString(i))

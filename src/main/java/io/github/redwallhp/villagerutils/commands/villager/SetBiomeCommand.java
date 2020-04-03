@@ -12,10 +12,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
-import io.github.redwallhp.villagerutils.commands.AbstractCommand;
+import io.github.redwallhp.villagerutils.commands.VillagerSpecificAbstractCommand;
 import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 
-public class SetBiomeCommand extends AbstractCommand implements TabCompleter {
+public class SetBiomeCommand extends VillagerSpecificAbstractCommand implements TabCompleter {
 
     public SetBiomeCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
@@ -39,9 +39,8 @@ public class SetBiomeCommand extends AbstractCommand implements TabCompleter {
         }
         Player player = (Player) sender;
 
-        Villager target = VillagerHelper.getVillagerInLineOfSight(player);
-        if (target == null) {
-            player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
+        Villager villager = getVillagerInLineOfSight(player, "Wandering traders can't change their appearance.");
+        if (villager == null) {
             return false;
         }
 
@@ -57,7 +56,7 @@ public class SetBiomeCommand extends AbstractCommand implements TabCompleter {
             return false;
         }
 
-        target.setVillagerType(biome);
+        villager.setVillagerType(biome);
         player.sendMessage(ChatColor.DARK_AQUA + "Villager biome updated.");
         return true;
     }

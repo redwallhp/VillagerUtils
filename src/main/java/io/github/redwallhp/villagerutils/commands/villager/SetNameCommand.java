@@ -2,8 +2,8 @@ package io.github.redwallhp.villagerutils.commands.villager;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
 import io.github.redwallhp.villagerutils.commands.AbstractCommand;
@@ -32,7 +32,7 @@ public class SetNameCommand extends AbstractCommand {
             return false;
         }
         Player player = (Player) sender;
-        Villager target = VillagerHelper.getVillagerInLineOfSight(player);
+        AbstractVillager target = VillagerHelper.getAbstractVillagerInLineOfSight(player);
         if (target == null) {
             player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
             return false;

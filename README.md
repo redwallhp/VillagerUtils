@@ -6,6 +6,9 @@ Tools for managing villagers on Spigot servers.
 
 * Commands to edit villager trades, professions, biomes and experience levels.
 
+* Support for editing wandering trader traders. 
+  (See the Wandering Traders section, below, for caveats.)
+
 * Log villager deaths with enough information to reasonably recreate them.
 
 * Protect villagers from grief by only allowing WorldGuard region members to harm them.
@@ -16,6 +19,32 @@ Note that novice villagers select their profession to suit a nearby workstation.
 Until a villager has selected a workstation, his skin will not reflect the
 villager's current profession. Setting a villager to master level (5) does not
 automatically create trades appropriate to their profession.
+
+
+## Wandering Traders
+
+VillagerUtils can edit the trades of wandering traders. They don't have a
+profession, level or biome variants, and cannot acquire new trades, so the
+`/villager profession`, `/villager level`, `/villager biome` and 
+`/villager static` sub-commands are not applicable to wandering traders and
+will show an appropriate error message.
+
+Wandering traders automatically despawn after a while, despite having
+`PersistenceRequired: 1b` in their NBT data. They should be configured to
+delay this as long as possible by setting their `DespawnDelay` to the
+largest possible value of a signed 32-bit integer 2,147,483,647 (2<sup>31</sup> - 1).
+But if you have trouble remembering that exact value, 2 billion is close enough.
+For example, to prevent the nearest wandering trader from despawning for about
+3 years, use:
+
+    /data merge entity @e[type=wandering_trader,sort=nearest,limit=1] {DespawnDelay: 2000000000}
+
+Wandering traders drink an invisibility potion at night. To prevent that, you
+can disable their AI using the `Bukkit.Aware` NBT tag. If you disable AI, you
+will probably also need to set the direction they face. For example, to 
+configure the nearest wandering trader to face north, use:
+
+    /data merge entity @e[type=wandering_trader,sort=nearest,limit=1] {DespawnDelay: 2000000000, Bukkit.Aware: 0b, Rotation: [180f, 0f]}
 
 
 ## Commands

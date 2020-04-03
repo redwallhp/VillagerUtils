@@ -1,6 +1,7 @@
 package io.github.redwallhp.villagerutils.listeners;
 
 import org.bukkit.Location;
+import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,37 +24,41 @@ public class VillagerLogger implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         if (!plugin.getConfiguration().LOGGING)
             return;
-        if (event.getEntity() instanceof Villager) {
-            logDeath((Villager) event.getEntity());
+        if (event.getEntity() instanceof AbstractVillager) {
+            logDeath((AbstractVillager) event.getEntity());
         }
     }
 
-    private void logDeath(Villager villager) {
+    private void logDeath(AbstractVillager abstractVillager) {
         StringBuilder sb = new StringBuilder("[VILLAGER DEATH] ");
 
-        Location l = villager.getLocation();
+        Location l = abstractVillager.getLocation();
         sb.append(String.format("Location: %s %d %d %d | ", l.getWorld().getName(), l.getBlockX(), l.getBlockY(), l.getBlockZ()));
 
-        if (villager.getKiller() != null) {
-            sb.append(String.format("Killer: %s (%s) | ", villager.getKiller().getName(), villager.getKiller().getUniqueId()));
+        if (abstractVillager.getKiller() != null) {
+            sb.append(String.format("Killer: %s (%s) | ", abstractVillager.getKiller().getName(), abstractVillager.getKiller().getUniqueId()));
         }
 
-        String name = villager.getCustomName();
+        String name = abstractVillager.getCustomName();
         if (name != null && !name.equals("")) {
             sb.append(String.format("Name: %s | ", name));
         }
 
-        sb.append(String.format("Profession: %s | ", villager.getProfession()));
-        sb.append(String.format("Biome: %s | ", villager.getVillagerType()));
-        sb.append(String.format("Level: %d | ", villager.getVillagerLevel()));
-        sb.append(String.format("Experience: %d | ", villager.getVillagerExperience()));
+        if (abstractVillager instanceof Villager) {
+            Villager villager = (Villager) abstractVillager;
+            sb.append(String.format("Profession: %s | ", villager.getProfession()));
+            sb.append(String.format("Biome: %s | ", villager.getVillagerType()));
+            sb.append(String.format("Level: %d | ", villager.getVillagerLevel()));
+            sb.append(String.format("Experience: %d | ", villager.getVillagerExperience()));
+        }
+
         sb.append("Recipes: ");
 
-        for (MerchantRecipe recipe : villager.getRecipes()) {
+        for (MerchantRecipe recipe : abstractVillager.getRecipes()) {
             sb.append("{");
             sb.append(getRecipeString(recipe));
             sb.append("}");
-            if (villager.getRecipes().indexOf(recipe) < villager.getRecipes().size() - 1) {
+            if (abstractVillager.getRecipes().indexOf(recipe) < abstractVillager.getRecipes().size() - 1) {
                 sb.append(", ");
             }
         }

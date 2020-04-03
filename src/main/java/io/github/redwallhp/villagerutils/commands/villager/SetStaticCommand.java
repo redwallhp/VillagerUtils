@@ -13,10 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
-import io.github.redwallhp.villagerutils.commands.AbstractCommand;
-import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
+import io.github.redwallhp.villagerutils.commands.VillagerSpecificAbstractCommand;
 
-public class SetStaticCommand extends AbstractCommand implements TabCompleter {
+public class SetStaticCommand extends VillagerSpecificAbstractCommand implements TabCompleter {
 
     public SetStaticCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
@@ -39,21 +38,23 @@ public class SetStaticCommand extends AbstractCommand implements TabCompleter {
             return false;
         }
         Player player = (Player) sender;
-        Villager target = VillagerHelper.getVillagerInLineOfSight(player);
-        if (target == null) {
-            player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
+
+        Villager villager = getVillagerInLineOfSight(player, "Wandering traders don't acquire new trades.");
+        if (villager == null) {
             return false;
         }
+
         if (args.length < 1) {
             player.sendMessage(ChatColor.RED + getUsage());
             return false;
         }
+
         Boolean value = Boolean.parseBoolean(args[0]);
         if (value) {
-            plugin.getVillagerMeta().STATIC_MERCHANTS.add(target.getUniqueId().toString());
+            plugin.getVillagerMeta().STATIC_MERCHANTS.add(villager.getUniqueId().toString());
             sender.sendMessage(ChatColor.DARK_AQUA + "This villager will not acquire its own trades.");
         } else {
-            plugin.getVillagerMeta().STATIC_MERCHANTS.remove(target.getUniqueId().toString());
+            plugin.getVillagerMeta().STATIC_MERCHANTS.remove(villager.getUniqueId().toString());
             sender.sendMessage(ChatColor.DARK_AQUA + "This villager will acquire its own trades");
         }
         plugin.getVillagerMeta().save();
