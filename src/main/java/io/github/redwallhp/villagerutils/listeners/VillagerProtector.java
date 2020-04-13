@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -14,6 +15,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.AreaEffectCloudApplyEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionType;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
@@ -62,6 +65,30 @@ public class VillagerProtector implements Listener {
         if (isProhibited) {
             event.setCancelled(true);
             player.sendMessage(ChatColor.RED + "You don't have permission to harm villagers in this region.");
+        }
+    }
+
+    /**
+     * Prevent players from applying name tags to villagers when they can't
+     * build at the villager location.
+     */
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+        Player player = event.getPlayer();
+
+        // There's no trivial way to map EquipmentSlot enum to Inventory index.
+        if (event.getHand() == EquipmentSlot.HAND &&
+            player.getEquipment().getItemInMainHand().getType() != Material.NAME_TAG) {
+            return;
+        }
+        if (event.getHand() == EquipmentSlot.OFF_HAND &&
+            player.getEquipment().getItemInOffHand().getType() != Material.NAME_TAG) {
+            return;
+        }
+
+        if (!WorldGuardHelper.canBuild(player, event.getRightClicked().getLocation())) {
+            event.setCancelled(true);
+            player.sendMessage(ChatColor.RED + "You can't rename that villager in this region.");
         }
     }
 

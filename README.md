@@ -13,6 +13,9 @@ Tools for managing villagers on Spigot servers.
 
 * Protect villagers from grief by only allowing WorldGuard region members to harm them.
 
+* Prevent villagers from being renamed by players who don't have build permission
+  at the villager's location.
+
 * Protect villagers from being hurt by blacklisted mob types. e.g. `protect_from_mobs: [Evoker, Evoker_Fangs, Vex, Vindicator]`.
 
 Note that novice villagers select their profession to suit a nearby workstation.
