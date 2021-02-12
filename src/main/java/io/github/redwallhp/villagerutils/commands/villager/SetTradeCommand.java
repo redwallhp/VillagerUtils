@@ -18,20 +18,20 @@ import io.github.redwallhp.villagerutils.VillagerUtils;
 import io.github.redwallhp.villagerutils.commands.AbstractCommand;
 import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 
-public class AddTradeCommand extends AbstractCommand implements TabCompleter {
+public class SetTradeCommand extends AbstractCommand implements TabCompleter {
 
-    public AddTradeCommand(VillagerUtils plugin) {
+    public SetTradeCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
     }
 
     @Override
     public String getName() {
-        return "addtrade";
+        return "settrade";
     }
 
     @Override
     public String getUsage() {
-        return "/villager addtrade [<position>]";
+        return "/villager settrade <position>";
     }
 
     @Override
@@ -40,53 +40,32 @@ public class AddTradeCommand extends AbstractCommand implements TabCompleter {
             sender.sendMessage(ChatColor.RED + "Console cannot edit villagers.");
             return false;
         }
+
         Player player = (Player) sender;
         AbstractVillager target = VillagerHelper.getAbstractVillagerInLineOfSight(player);
         if (target == null) {
             player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
             return false;
         }
-        if (!plugin.getWorkspaceManager().hasWorkspace(player)) {
-            player.sendMessage(ChatColor.RED + "You do not have a trade loaded. Use '/vtrade'");
-            return false;
-        }
-        MerchantRecipe recipe = plugin.getWorkspaceManager().getWorkspace(player);
-        if (recipe.getIngredients().size() == 0) {
-            player.sendMessage(ChatColor.RED + "You haven't set the trade items yet! Use '/vtrade items'");
-            return false;
-        }
 
-        if (args.length > 1) {
+        if (args.length != 1) {
             player.sendMessage(ChatColor.RED + "Invalid arguments. Usage: " + getUsage());
             return false;
         }
 
-        List<MerchantRecipe> recipes = new ArrayList<MerchantRecipe>();
-        recipes.addAll(target.getRecipes());
-
-        int position = Integer.MAX_VALUE;
-        if (args.length == 1) {
-            try {
-                position = Integer.parseInt(args[0]);
-            } catch (IllegalArgumentException ex) {
-                player.sendMessage(ChatColor.RED + "The position must be an integer.");
-                return false;
+        List<MerchantRecipe> recipes = new ArrayList<>(target.getRecipes());
+        try {
+            int position = Integer.parseInt(args[0]);
+            if (position >= 1 && position <= recipes.size()) {
+                recipes.set(position - 1, plugin.getWorkspaceManager().getWorkspace(player));
+                target.setRecipes(recipes);
+                player.sendMessage(ChatColor.DARK_AQUA + "Villager trade " + position + " set from your workspace.");
+                return true;
             }
+        } catch (IllegalArgumentException ex) {
         }
-
-        if (position <= 0) {
-            player.sendMessage(ChatColor.RED + "The position must be at least 1.");
-            return false;
-        } else if (position > recipes.size()) {
-            // Allow any large position value when appending.
-            recipes.add(recipe);
-        } else {
-            recipes.add(position - 1, recipe);
-        }
-
-        target.setRecipes(recipes);
-        player.sendMessage(ChatColor.DARK_AQUA + "Villager trade added.");
-        return true;
+        player.sendMessage(ChatColor.RED + "The position must be between 1 and the number of trades.");
+        return false;
     }
 
     @Override
@@ -95,7 +74,7 @@ public class AddTradeCommand extends AbstractCommand implements TabCompleter {
             Player player = (Player) sender;
             AbstractVillager target = VillagerHelper.getAbstractVillagerInLineOfSight(player);
             if (target != null) {
-                return IntStream.rangeClosed(1, target.getRecipeCount() + 1)
+                return IntStream.rangeClosed(1, target.getRecipeCount())
                 .mapToObj(i -> Integer.toString(i))
                 .filter(completion -> completion.startsWith(args[1]))
                 .collect(Collectors.toList());
