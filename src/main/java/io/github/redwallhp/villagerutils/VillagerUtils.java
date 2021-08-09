@@ -1,5 +1,7 @@
 package io.github.redwallhp.villagerutils;
 
+import java.io.File;
+
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,6 +24,8 @@ public class VillagerUtils extends JavaPlugin {
         workspaceManager = new WorkspaceManager();
         configuration = new Configuration();
         villagerMeta = new VillagerMeta();
+
+        getSavedVillagersDirectory().mkdir();
 
         new CommandManager();
         new TradeListener();
@@ -55,4 +59,12 @@ public class VillagerUtils extends JavaPlugin {
         return plugin != null;
     }
 
+    /**
+     * Return the directory where {@code /villager save} stores files.
+     *
+     * @return the directory where {@code /villager save} stores files.
+     */
+    public File getSavedVillagersDirectory() {
+        return new File(getDataFolder(), "saved-villagers");
+    }
 }

@@ -6,6 +6,9 @@ Tools for managing villagers on Spigot servers.
 
 * Commands to edit villager trades, professions, biomes and experience levels.
 
+* Commands to save a villager to a file, spawn a villager clone from a file
+  and to list and delete villager save files.
+
 * Support for editing wandering trader traders. 
   (See the Wandering Traders section, below, for caveats.)
 
@@ -82,6 +85,14 @@ will not be "seen".
 * `/villager addtrade [<position>]` - Add the trade in your workspace to the villager. If a position is specified, the trade is inserted before the existing trade at that position and all subsequent trades are moved down the list. Position 1 signifies the first trade. To add the trade after the last trade, use a position number that is greater than the number of trades, or simply omit the position.
 
 * `/villager removetrade <position>` - Remove the trade at the specified position, from 1 to the number of trades.
+
+* `/villager savefile <filename>` - Save the currently looked-at villager to the specified file. Valid file names can consist only of letters, digits, underscores and hyphens.
+
+* `/villager spawnfile <filename>` - Spawn a clone of the villager described by the specified file at the player's current location.
+
+* `/villager listfiles` - Show a list of all villager save file names.
+
+* `/villager deletefile <filename>` - Delete the specified villager save file.
 
 
 ### /vtrade

@@ -24,6 +24,10 @@ public class VillagerCommand extends AbstractCommand {
         // addSubCommand(new RefreshTradesCommand(plugin));
         addSubCommand(new GetTradeCommand(plugin));
         addSubCommand(new SetTradeCommand(plugin));
+        addSubCommand(new SaveFileCommand(plugin));
+        addSubCommand(new SpawnFileCommand(plugin));
+        addSubCommand(new ListFilesCommand(plugin));
+        addSubCommand(new DeleteFileCommand(plugin));
     }
 
     @Override
