@@ -1,8 +1,5 @@
 package io.github.redwallhp.villagerutils.commands.villager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.AbstractVillager;
@@ -11,22 +8,23 @@ import org.bukkit.inventory.MerchantRecipe;
 
 import io.github.redwallhp.villagerutils.VillagerUtils;
 import io.github.redwallhp.villagerutils.commands.AbstractCommand;
+import io.github.redwallhp.villagerutils.helpers.TradeHelper;
 import io.github.redwallhp.villagerutils.helpers.VillagerHelper;
 
-public class ClearTradesCommand extends AbstractCommand {
+public class ListTradesCommand extends AbstractCommand {
 
-    public ClearTradesCommand(VillagerUtils plugin) {
+    public ListTradesCommand(VillagerUtils plugin) {
         super(plugin, "villagerutils.editvillager");
     }
 
     @Override
     public String getName() {
-        return "cleartrades";
+        return "listtrades";
     }
 
     @Override
     public String getUsage() {
-        return "/villager cleartrades";
+        return "/villager listtrades";
     }
 
     @Override
@@ -35,15 +33,26 @@ public class ClearTradesCommand extends AbstractCommand {
             sender.sendMessage(ChatColor.RED + "Console cannot edit villagers.");
             return false;
         }
+
         Player player = (Player) sender;
         AbstractVillager target = VillagerHelper.getAbstractVillagerInLineOfSight(player);
         if (target == null) {
             player.sendMessage(ChatColor.RED + "You're not looking at a villager.");
             return false;
         }
-        List<MerchantRecipe> recipes = new ArrayList<MerchantRecipe>();
-        target.setRecipes(recipes);
-        player.sendMessage(ChatColor.DARK_AQUA + "Villager trades cleared.");
+
+        if (args.length != 0) {
+            player.sendMessage(ChatColor.RED + "Invalid arguments. Usage: " + getUsage());
+            return false;
+        }
+
+        int index = 1;
+        for (MerchantRecipe recipe : target.getRecipes()) {
+            sender.sendMessage(ChatColor.DARK_AQUA + "---------- Trade #" + index + " ----------");
+            TradeHelper.describeTrade(sender, recipe);
+            ++index;
+        }
+        sender.sendMessage(ChatColor.DARK_AQUA + "======== Total trades: " + (index - 1) + " ========");
         return true;
     }
 

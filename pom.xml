@@ -7,7 +7,13 @@
 
     <groupId>io.github.redwallhp</groupId>
     <artifactId>VillagerUtils</artifactId>
-    <version>1.1.2</version>
+    <version>2.3.0</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 
 
     <repositories>
@@ -26,7 +32,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.13-R0.1-SNAPSHOT</version>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
@@ -47,6 +53,7 @@
 
 
     <build>
+	    <defaultGoal>clean package</defaultGoal>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -57,3 +64,4 @@
 
 
 </project>
+

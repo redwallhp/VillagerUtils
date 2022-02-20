@@ -1,33 +1,31 @@
 package io.github.redwallhp.villagerutils;
 
-import com.sk89q.worldguard.WorldGuard;
+import java.io.File;
+
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import io.github.redwallhp.villagerutils.commands.CommandManager;
 import io.github.redwallhp.villagerutils.listeners.TradeListener;
 import io.github.redwallhp.villagerutils.listeners.VillagerLogger;
 import io.github.redwallhp.villagerutils.listeners.VillagerProtector;
-import org.bukkit.inventory.MerchantRecipe;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.HashMap;
-import java.util.UUID;
-
 
 public class VillagerUtils extends JavaPlugin {
 
-
     public static VillagerUtils instance;
-    private HashMap<UUID, MerchantRecipe> tradeWorkspace;
+    private WorkspaceManager workspaceManager;
     private Configuration configuration;
     private VillagerMeta villagerMeta;
 
-
+    @Override
     public void onEnable() {
 
         VillagerUtils.instance = this;
-        tradeWorkspace = new HashMap<UUID, MerchantRecipe>();
+        workspaceManager = new WorkspaceManager();
         configuration = new Configuration();
         villagerMeta = new VillagerMeta();
+
+        getSavedVillagersDirectory().mkdir();
 
         new CommandManager();
         new TradeListener();
@@ -36,26 +34,22 @@ public class VillagerUtils extends JavaPlugin {
 
     }
 
-
+    @Override
     public void onDisable() {
         villagerMeta.save();
     }
-
 
     public Configuration getConfiguration() {
         return configuration;
     }
 
-
     public VillagerMeta getVillagerMeta() {
         return villagerMeta;
     }
 
-
-    public HashMap<UUID, MerchantRecipe> getTradeWorkspace() {
-        return tradeWorkspace;
+    public WorkspaceManager getWorkspaceManager() {
+        return workspaceManager;
     }
-
 
     /**
      * Check if WorldGuard is installed
@@ -65,5 +59,12 @@ public class VillagerUtils extends JavaPlugin {
         return plugin != null;
     }
 
-
+    /**
+     * Return the directory where {@code /villager save} stores files.
+     *
+     * @return the directory where {@code /villager save} stores files.
+     */
+    public File getSavedVillagersDirectory() {
+        return new File(getDataFolder(), "saved-villagers");
+    }
 }
